@@ -5,39 +5,62 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class RegistrationPage {
-    private final WebDriver driver;
+    WebDriver driver;
+
+    //Define your locators at the top of the class
+    By myAccountLink = By.linkText("MY ACCOUNT");
+    By createAccountLink = By.linkText("CREATE AN ACCOUNT");
+    By enterFirstName = By.id("firstname");
+    By enterMiddleName = By.id("middlename");
+    By enterLastName = By.id("lastname");
+    By enterEmailAddress = By.id("email_address");
+    By enterPassword = By.id("password");
+    By enterPasswordConfirmation = By.id("confirmation");
+    By registerButton= By.xpath("//button[@class='button']");
 
     public RegistrationPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    public void fillRegistrationForm(String firstName, String lastName, String email, String password) {
-        WebElement firstNameInput = driver.findElement(By.id("firstname"));
-        firstNameInput.clear();
-        firstNameInput.sendKeys(firstName);
-
-        WebElement lastNameInput = driver.findElement(By.id("lastname"));
-        lastNameInput.clear();
-        lastNameInput.sendKeys(lastName);
-
-        WebElement emailInput = driver.findElement(By.id("email_address"));
-        emailInput.clear();
-        emailInput.sendKeys(email);
-
-        WebElement passwordInput = driver.findElement(By.id("password"));
-        passwordInput.clear();
-        passwordInput.sendKeys(password);
-
-        WebElement confirmationInput = driver.findElement(By.id("confirmation"));
-        confirmationInput.clear();
-        confirmationInput.sendKeys(password);
+    // Create methods for each action
+    public void myAccountLink(){
+        driver.findElement(myAccountLink).click();
+    }
+    public void createAccountLink(){
+        driver.findElement(createAccountLink).click();
+    }
+    public void enterFirstName(String firstName){
+        WebElement firstNameElement = driver.findElement(enterFirstName);
+        firstNameElement.clear(); // clear the QTY before
+        firstNameElement.sendKeys(firstName);
+    }
+    public void enterMiddleName(String middleName){
+        WebElement firstNameElement = driver.findElement(enterMiddleName);
+        firstNameElement.clear(); // clear the QTY before
+        firstNameElement.sendKeys(middleName);
+    }
+    public void enterLastName(String lastName){
+        WebElement firstNameElement = driver.findElement(enterLastName);
+        firstNameElement.clear(); // clear the QTY before
+        firstNameElement.sendKeys(lastName);
+    }
+    public void enterEmailAddress(String emailAddress){
+        WebElement firstNameElement = driver.findElement(enterEmailAddress);
+        firstNameElement.clear(); // clear the QTY before
+        firstNameElement.sendKeys(emailAddress);
+    }
+    public void enterPassword(String password){
+        WebElement firstNameElement = driver.findElement(enterPassword);
+        firstNameElement.clear(); // clear the QTY before
+        firstNameElement.sendKeys(password);
+    }
+    public void enterPasswordConfirmation(String confirmation){
+        WebElement firstNameElement = driver.findElement(enterPasswordConfirmation);
+        firstNameElement.clear(); // clear the QTY before
+        firstNameElement.sendKeys(confirmation);
+    }
+    public void registerButton(){
+        driver.findElement(registerButton).click();
     }
 
-    public void clickRegister() {
-        driver.findElement(By.cssSelector("button[title='Register'] span span")).click();
-    }
-    public void ResSuccessful() {
-        assert driver.findElement(By.cssSelector("div[class='page-title'] h1")).isDisplayed();
-        driver.findElement(By.xpath("//a[normalize-space()='TV']"));
-    }
 }

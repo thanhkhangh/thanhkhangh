@@ -3,69 +3,86 @@ package POM;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
-
-import java.util.NoSuchElementException;
 
 public class CartPage {
-    private WebDriver driver;
+    WebDriver driver;
+
+    //Define your locators at the top of the class
+    By wishListLink = By.xpath("(//a[@href='http://live.techpanda.org/index.php/wishlist/'])[2]");
+    By addToCartLink = By.xpath("//button[@title='Add to Cart']");
+    By enterCountry = By.id("country");
+    By enterRegion = By.id("region");
+    By enterPostCode = By.id("postcode");
+    By estimateLink = By.xpath("//span[text()='Estimate']");
+    //    By shippingCostGenerated = By.xpath("//dt[text()='Flat Rate']");
+    By chooseShippingCost = By.id("s_method_flatrate_flatrate");
+    By updateTotal = By.xpath("//button[@class='button']");
+    By checkOutProccess = By.xpath("(//button[@title='Proceed to Checkout'])[2]");
+
+    By reOrderLink = By.xpath("//a[@class='link-reorder']");
+    By enterQTY = By.xpath("//input[@class='input-text qty']");
+    By updateQTYButton = By.xpath("//button[@title='Update']");
 
     public CartPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    public void estimateInfo(String country, String region, String zip) {
-        // Select the country from the dropdown
-        Select countryDropdown = new Select(driver.findElement(By.id("country")));
-        countryDropdown.selectByVisibleText(country);
-
-        if ("United States".equals(country)) {
-            // Select the region from the dropdown for United States
-            Select regionDropdown = new Select(driver.findElement(By.id("region_id")));
-            regionDropdown.selectByVisibleText(region);
-        } else {
-            // Fill in the REGION input field for other countries
-            WebElement regionInput = driver.findElement(By.id("region_id"));
-            regionInput.sendKeys(region);
-        }
-
-        // Fill in the ZIP code
-        WebElement zipInput = driver.findElement(By.id("postcode"));
-        zipInput.sendKeys(zip);
+    // Create methods for each action
+    public void setWishListLink() {
+        driver.findElement(wishListLink).click();
     }
 
-    public String getTotalAmount() {
-        WebElement totalElement = driver.findElement(By.cssSelector("strong span[class='price']")); // Adjust the locator as per your website's structure
-        return totalElement.getText();
+    public void setAddToCartLink() {
+        driver.findElement(addToCartLink).click();
     }
 
-    public void estimateShippingCost() {
-        driver.findElement(By.cssSelector("button[title='Estimate'] span span")).click();
+    public void setEnterCountry(String country) {
+        WebElement countryElement = driver.findElement(enterCountry);
+        countryElement.sendKeys(country);
     }
 
-    public boolean isShippingCostGenerated() {
-        try {
-            WebElement shippingCostElement = driver.findElement(By.xpath("//label[@for='s_method_flatrate_flatrate']")); // Adjust the locator as per your website's structure
-            return shippingCostElement.isDisplayed();
-        } catch (NoSuchElementException e) {
-            return false; // Shipping cost element not found
-        }
+    public void setEnterRegion(String region) {
+        WebElement regionElement = driver.findElement(enterRegion);
+        regionElement.clear(); // clear the QTY before
+        regionElement.sendKeys(region);
     }
 
-    public void selectShippingCost() {
-        WebElement shippingCostRadioButton = driver.findElement(By.cssSelector("label[for='s_method_flatrate_flatrate'] span[class='price']"));
-        if (!shippingCostRadioButton.isSelected()) {
-            shippingCostRadioButton.click();
-        }
+    public void setEnterPostCode(String postCode) {
+        WebElement postCodeElement = driver.findElement(enterPostCode);
+        postCodeElement.clear(); // clear the QTY before
+        postCodeElement.sendKeys(postCode);
     }
 
-    public void updateTotal() {
-        driver.findElement(By.cssSelector("button[title='Update Total'] span span")).click();
+    public void setEstimateLink() {
+        driver.findElement(estimateLink).click();
+    }
+//    public void setShippingCostGenerated() {
+//        driver.findElement(shippingCostGenerated).click();
+//    }
+
+    public void setChooseShippingCost() {
+        driver.findElement(chooseShippingCost).click();
     }
 
-    public void processCheckout(){
-        driver.findElement(By.cssSelector("li[class='method-checkout-cart-methods-onepage-bottom'] button[title='Proceed to Checkout'] span span")).click();
+    public void setUpdateTotal() {
+        driver.findElement(updateTotal).click();
     }
 
+    public void setCheckOutProccess() {
+        driver.findElement(checkOutProccess).click();
+    }
 
+    public void setReOrderLink(){
+        driver.findElement(reOrderLink).click();
+    }
+
+    public void setEnterQTY(String qty) {
+        WebElement qtyElement = driver.findElement(enterQTY);
+        qtyElement.clear(); // clear the QTY before
+        qtyElement.sendKeys(qty);
+    }
+
+    public void setUpdateQTYButton(){
+        driver.findElement(updateQTYButton).click();
+    }
 }
